@@ -1,5 +1,41 @@
 ﻿using VMK_L2022_03_15_Exceptions;
 
+void SomeFun()
+{
+    StreamReader? sr = null;
+    int a = -1;
+    try
+    {
+        sr = new StreamReader("somefile.txt");
+        Console.WriteLine("Файл открыт");
+        var data = sr.ReadLine();
+        var ln = data?.Length ?? 0;
+        a = int.Parse(data ?? "0");
+    }
+    catch (FileNotFoundException ex)
+    {
+        Console.WriteLine("Проблема с файлом");
+    }
+    finally
+    {
+        sr?.Close();
+        Console.WriteLine("Файл закрыт");
+    }
+    Console.WriteLine("Данные в файле: {0}", a);
+    
+}
+
+try
+{
+    SomeFun();
+}
+catch (FormatException e)
+{
+    Console.WriteLine("Не удалось получить целое число :(");
+    return;
+}
+
+
 var s = "-2";
 try
 {
@@ -26,6 +62,10 @@ catch (NegativeNumberException e)
 catch
 {
     Console.WriteLine("Возникло исключение :(");
+}
+finally
+{
+    // Обязательное исполнение.
 }
 
 try
